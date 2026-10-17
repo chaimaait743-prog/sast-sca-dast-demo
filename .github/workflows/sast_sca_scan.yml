@@ -1,4 +1,3 @@
-
 name: SAST & SCA Scan
 
 on:
@@ -35,17 +34,12 @@ jobs:
             -Dsonar.organization=chaimaait743-prog
             -Dsonar.projectKey=chaimaait743-prog_sast-sca-dast-demo
             -Dsonar.sources=vulnerable_flask_app
+            -Dsonar.coverage.exclusions=**/*
 
-            - name: Run SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v5
+      - name: SonarQube Quality Gate check
+        uses: sonarsource/sonarqube-quality-gate-action@v1
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.organization=chaimaait743-prog
-            -Dsonar.projectKey=chaimaait743-prog_sast-sca-dast-demo
-            -Dsonar.sources=vulnerable_flask_app
-            -Dsonar.coverage.exclusions=**/*
 
       - name: Run pip-audit
         if: always()
