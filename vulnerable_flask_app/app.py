@@ -57,4 +57,5 @@ def admin():
     """
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0')  # debug désactivé
+    host = os.environ.get('FLASK_HOST', '127.0.0.1')
+    app.run(debug=False, host=host)
